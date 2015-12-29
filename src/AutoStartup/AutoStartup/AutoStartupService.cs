@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.ServiceProcess;
 
 namespace AutoStartup
@@ -15,13 +16,9 @@ namespace AutoStartup
 
         protected override void OnStart(string[] args)
         {
-            var paths = new List<string>();
-            foreach (StartupElement startup in StartupSection.Settings.Startups)
-            {
-                paths.Add(startup.Path);
-            }
+            var config = ConfigurationManager.GetSection("autoStartup") as StartupSection;
 
-            _controller = new ProcessController(paths);
+            _controller = new ProcessController(config);
             _controller.Start();
         }
 

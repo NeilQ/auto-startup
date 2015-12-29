@@ -1,30 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 
 namespace AutoStartup
 {
     public class ProcessController
     {
-        private readonly IList<string> _processPaths;
+        private readonly StartupSection _config;
         private IList<Process> _processes;
 
-        public ProcessController(IList<string> processPaths)
+        public ProcessController(StartupSection copnfig)
         {
-            _processPaths = processPaths;
+            _config = copnfig;
 
         }
 
         public void Start()
         {
-            if (_processPaths == null || _processPaths.Count == 0) return;
+            if (_config?.Startups == null || _config.Startups.Count == 0) return;
 
             _processes = new List<Process>();
             try
             {
-                foreach (var t in _processPaths)
+                foreach (StartupElement t in _config.Startups)
                 {
-                    var info = new ProcessStartInfo(t)
+                    var info = new ProcessStartInfo(t.Path)
                     {
                         UseShellExecute = false,
                         RedirectStandardError = true,
@@ -33,6 +34,7 @@ namespace AutoStartup
                         CreateNoWindow = true,
                         ErrorDialog = false,
                         WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = t.Args
                     };
 
                     _processes.Add(Process.Start(info));
