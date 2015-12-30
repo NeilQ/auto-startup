@@ -8,6 +8,7 @@ namespace AutoStartup
     public partial class AutoStartupService : ServiceBase
     {
         private ProcessController _controller;
+        private readonly Logger _logger = new Logger();
 
         public AutoStartupService()
         {
@@ -16,9 +17,18 @@ namespace AutoStartup
 
         protected override void OnStart(string[] args)
         {
-            var config = ConfigurationManager.GetSection("autoStartup") as StartupSection;
+            StartupSection config = null;
+            try
+            {
+                config = ConfigurationManager.GetSection("autoStartup") as StartupSection;
+            }
+            catch (Exception e)
+            {
+                _logger.Log(e.Message + e.StackTrace);
+                OnStop();
+            }
 
-            _controller = new ProcessController(config);
+            _controller = new ProcessController(config, _logger);
             _controller.Start();
         }
 
@@ -29,9 +39,9 @@ namespace AutoStartup
 
         internal void TestStartupAndStop(string[] args)
         {
-            this.OnStart(args);
+            OnStart(args);
             Console.ReadLine();
-            this.OnStop();
+            OnStop();
         }
     }
 }

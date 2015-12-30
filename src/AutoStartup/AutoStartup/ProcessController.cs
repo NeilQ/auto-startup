@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 
 namespace AutoStartup
@@ -8,12 +7,13 @@ namespace AutoStartup
     public class ProcessController
     {
         private readonly StartupSection _config;
+        private readonly ILogger _logger;
         private IList<Process> _processes;
 
-        public ProcessController(StartupSection copnfig)
+        public ProcessController(StartupSection copnfig, ILogger logger)
         {
             _config = copnfig;
-
+            _logger = logger;
         }
 
         public void Start()
@@ -42,8 +42,7 @@ namespace AutoStartup
             }
             catch (Exception e)
             {
-                // ignore
-                // todo: log
+                _logger.Log(e.Message + e.StackTrace);
             }
         }
 
@@ -60,10 +59,9 @@ namespace AutoStartup
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // ignore
-                // todo: log
+                _logger.Log(e.Message + e.StackTrace);
             }
             finally
             {
