@@ -242,9 +242,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:AutoStartupx86"
+        "ProductName" = "8:AutoStartup"
         "ProductCode" = "8:{2CFD3603-44B1-4C38-A97B-F2945B0EC945}"
-        "PackageCode" = "8:{DD8C425C-1283-407F-B68F-95C6FE33C734}"
+        "PackageCode" = "8:{BFDA1E8D-1C10-4C5A-8C6C-1C7CC6F83B87}"
         "UpgradeCode" = "8:{4C8296EC-ACC9-4292-A54D-528E9AE3DACD}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -765,7 +765,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0664D2085C2A489EB3CBCCA35D68B759"
             {
-            "SourcePath" = "8:..\\AutoStartup\\obj\\Debug\\AutoStartup.exe"
+            "SourcePath" = "8:..\\AutoStartup\\obj\\Release\\AutoStartup.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_7415FCA7E1234AB795F4308F5CDF8479"
