@@ -6,7 +6,7 @@ As a windows service, it will starting to run when your pc powered, without logg
 
 # Install
 - Download msi file from [here](https://github.com/NeilQ/auto-startup/releases) and install it.
-- Configure applications what you want to start at .config file at the your installed folder.
+- Configure applications what you want to start at .config file in your installed folder.
     ```
      <autoStartup>
          <startups>
