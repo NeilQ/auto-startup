@@ -16,7 +16,7 @@ As a windows service, it will starting to run when your pc powered, without logg
      </autoStartup>
     ```
     > **name**, just a unique name of one record.
-    > **path**, the application path what you want to auto-start. Or an command name like "ipconfig"
+    > **path**, the application path what you want to auto-start. Or an command name like "ipconfig".
     > **args**, the command args needed.
 
 - You can manage the service manually, which names "auto-startup".
