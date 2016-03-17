@@ -21,28 +21,29 @@ namespace AutoStartup
             if (_config?.Startups == null || _config.Startups.Count == 0) return;
 
             _processes = new List<Process>();
-            try
-            {
-                foreach (StartupElement t in _config.Startups)
-                {
-                    var info = new ProcessStartInfo(t.Path)
-                    {
-                        UseShellExecute = false,
-                        RedirectStandardError = true,
-                        RedirectStandardInput = true,
-                        RedirectStandardOutput = true,
-                        CreateNoWindow = true,
-                        ErrorDialog = false,
-                        WindowStyle = ProcessWindowStyle.Hidden,
-                        Arguments = t.Args
-                    };
 
+            foreach (StartupElement t in _config.Startups)
+            {
+                var info = new ProcessStartInfo(t.Path)
+                {
+                    UseShellExecute = false,
+                    RedirectStandardError = true,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    ErrorDialog = false,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    Arguments = t.Args
+                };
+
+                try
+                {
                     _processes.Add(Process.Start(info));
                 }
-            }
-            catch (Exception e)
-            {
-                _logger.Log(e.Message + e.StackTrace);
+                catch (Exception e)
+                {
+                    _logger.Log($"Start Faild for {t.Path} {t.Args}. {e.Message}");
+                }
             }
         }
 
